@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Saribay John Mark Portfolio - Group 4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap');
+
+  * { box-sizing: border-box; }
+
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #000010, #001133, #000);
+    color: #fff;
+    transition: background 1s ease, color 1s ease;
+  }
+
+  body.light-mode {
+    background: #ffffff;
+    color: #111;
+  }
+
+  /* ===== PARTICLE BACKGROUND ===== */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    background: #00ffe7;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: floatParticles 10s infinite ease-in-out;
+  }
+
+  @keyframes floatParticles {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-100px) scale(1.3); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 0.8; }
+  }
+
+  /* ===== LIGHT/DARK BUTTON ===== */
+  .dark-light-icon {
+    position: fixed;
+    top: 20px; right: 20px;
+    width: 45px; height: 45px;
+    border: none; border-radius: 50%;
+    font-size: 22px;
+    background: #00ffe7;
+    color: #000;
+    box-shadow: 0 0 20px #00ffe7aa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .dark-light-icon:hover {
+    transform: scale(1.15);
+    background: #00ccff;
+  }
+
+  /* ===== BACK BUTTON ===== */
+  .btn-back {
+    position: fixed;
+    top: 20px; left: 20px;
+    background: #00ffe7;
+    color: black;
+    font-weight: 700;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 22px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00ffe7aa;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .btn-back:hover {
+    transform: scale(1.1);
+    background: #00ccac;
+    color: white;
+  }
+
+  body.light-mode .btn-back {
+    background: #ffcc00;
+    color: #111;
+    box-shadow: 0 0 20px #ffdd55aa;
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    position: relative;
+    z-index: 1;
+    margin: 100px auto;
+    max-width: 500px;
+    text-align: center;
+    background: rgba(0, 0, 50, 0.85);
+    border-radius: 20px;
+    padding: 40px;
+    color: #00ffe7;
+    box-shadow: 0 0 40px #00ffe7aa;
+    transition: all 0.8s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  body.light-mode .card {
+    background: #ffffff;
+    color: #111;
+    box-shadow: 0 0 30px #ffd84daa;
+  }
+
+  /* ===== PHOTO ===== */
+  .photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 4px solid #00ffe7;
+    object-fit: cover;
+    margin-bottom: 25px;
+    box-shadow: 0 0 40px #00ffe7aa;
+    transition: all 0.7s ease;
+    position: relative;
+  }
+
+  .photo:hover {
+    transform: scale(1.25);
+    filter: brightness(1.2) contrast(1.3);
+    box-shadow:
+      0 0 60px #00ffe7cc,
+      0 0 100px #00ccffaa,
+      0 0 160px #00ffff55 inset;
+  }
+
+  .photo::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    box-shadow: 0 0 60px #00ffe7aa;
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: -1;
+  }
+
+  .photo:hover::after {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 80px #00ffe7, 0 0 120px #00ccff;
+  }
+
+  /* ===== NAME ===== */
+  h2 {
+    font-size: 2.3rem;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #00f5d4, #4361ee, #3a0ca3);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  body.light-mode h2 {
+    background: linear-gradient(90deg, #ffb700, #ffdd33, #ffea75);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* ===== TEXT ===== */
+  p {
+    color: #ccc;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  body.light-mode p {
+    color: #333;
+  }
+
+  .contact-info {
+    margin-top: 15px;
+    font-size: 0.95rem;
+  }
+
+  /* ===== SOCIAL LINKS ===== */
+  .social-links {
+    margin-top: 25px;
+  }
+
+  .social-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #00ffe7;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 25px;
+    background: #000022;
+    box-shadow: 0 0 20px #00ffe7aa;
+    transition: all 0.3s;
+  }
+
+  .social-links a:hover {
+    transform: scale(1.15);
+    background: #00ffe7;
+    color: black;
+  }
+
+  body.light-mode .social-links a {
+    background: #fff5cc;
+    color: #111;
+    box-shadow: 0 0 15px #ffdd55aa;
+  }
+
+  body.light-mode .social-links a:hover {
+    background: #ffd700;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<button class="dark-light-icon" id="toggleMode">🌞</button>
+<button class="btn-back" onclick="window.location.href='team.html'">← Back</button>
+
+<div class="card">
+  <img src="image/john mark.jpg" alt="Saribay John Mark" class="photo" />
+  <h2>Saribay John Mark</h2>
+  <p>
+    I’m <strong>John Mark Saribay</strong>, a BS Information Technology student from the 
+    <strong>University of Eastern Pangasinan</strong>, with a deep interest in learning about web technologies and modern computing systems.
+  </p>
+
+  <div class="contact-info">
+    Contact Number📞: 09453394188<br>
+    Email📧: johnmarksaribay45@gmail.com
+  </div>
+
+  <div class="social-links">
+    <a href="https://www.facebook.com/share/1BdrFhN1hS/" target="_blank">Facebook</a>
+    <a href="https://www.instagram.com/jmsrby?igsh=MW0xbDI5cW1zMDU1Zg==" target="_blank">Instagram</a>
+  </div>
+</div>
+
+<script>
+  // ===== LIGHT/DARK MODE TOGGLE =====
+  const toggleBtn = document.getElementById('toggleMode');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    toggleBtn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '🌞';
+  });
+
+  // ===== PARTICLES =====
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 35; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.width = `${Math.random() * 6 + 3}px`;
+    particle.style.height = particle.style.width;
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    particle.style.animationDuration = `${5 + Math.random() * 10}s`;
+    particle.style.animationDelay = `${Math.random() * 5}s`;
+    particlesContainer.appendChild(particle);
+  }
+</script>
+
+</body>
+</html>

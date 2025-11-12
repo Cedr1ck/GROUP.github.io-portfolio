@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Team Portfolio</title>
+<style>
+  /* ===== Reset & Base ===== */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+    height:100vh;
+    color:white;
+    background: radial-gradient(circle at 20% 20%, #1a1a40, #0d0d1a 80%);
+    transition: background 0.8s ease, color 0.8s ease;
+  }
+
+  /* ===== Light Mode ===== */
+  body.light-mode {
+    background: radial-gradient(circle at 40% 30%, #f8fbff, #dbeafe 80%);
+    color: #0d1b2a;
+  }
+
+  /* ===== Toggle Icon ===== */
+  #modeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    cursor:pointer;
+    box-shadow: 0 0 15px #00f5d4;
+    background: rgba(0,245,212,0.2);
+    color: white;
+    z-index: 100;
+    transition: all 0.4s ease;
+  }
+  #modeToggle:hover { transform: scale(1.2); }
+
+  body.light-mode #modeToggle {
+    background: rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 15px gold;
+    color: #0d1b2a;
+  }
+
+  /* ===== Background Orbs ===== */
+  .background { position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:0; }
+  .orb {
+    position:absolute;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(0,245,212,0.4), rgba(67,97,238,0.15));
+    filter: blur(60px);
+    animation: moveOrb 15s infinite ease-in-out alternate;
+    transition: background 1s ease, filter 1s ease;
+  }
+  body.light-mode .orb {
+    background: radial-gradient(circle, rgba(0,180,255,0.6), rgba(255,255,255,0.3));
+    filter: blur(90px) brightness(1.3);
+  }
+  @keyframes moveOrb {
+    0% { transform: translate(0,0) scale(1); opacity:0.6; }
+    50% { transform: translate(80px,-100px) scale(1.2); opacity:0.8; }
+    100% { transform: translate(-100px,80px) scale(1); opacity:0.6; }
+  }
+
+  /* ===== Stars ===== */
+  .stars { position:absolute; width:100%; height:100%; z-index:0; }
+  .star {
+    position:absolute; background:white; border-radius:50%; opacity:0.7;
+    animation: twinkle 3s infinite ease-in-out;
+  }
+  @keyframes twinkle { 
+    0%,100%{opacity:0.2; transform:scale(0.8);} 
+    50%{opacity:1; transform:scale(1.3);} 
+  }
+  body.light-mode .star {
+    background:#93c5fd;
+    opacity:0.5;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    position: relative; z-index:1; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; height:100vh; text-align:center;
+    animation: fadeIn 2s ease-out;
+    padding: 0 15px;
+  }
+  @keyframes fadeIn { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+
+  /* ===== Text ===== */
+  h1 {
+    font-size: 3em; letter-spacing:2px;
+    background: linear-gradient(90deg, #00f5d4, #00bbf9, #4361ee, #3a0ca3);
+    -webkit-background-clip:text; color:transparent;
+    animation: glowText 3.5s infinite alternate ease-in-out;
+    margin-top:20px;
+  }
+  @keyframes glowText { 
+    0%{text-shadow:0 0 10px #00f5d4,0 0 20px #00bbf9;} 
+    100%{text-shadow:0 0 25px #4361ee,0 0 40px #3a0ca3;} 
+  }
+  body.light-mode h1 {
+    background: linear-gradient(90deg, #0077b6, #00b4d8, #48cae4);
+    -webkit-background-clip:text;
+    text-shadow: 0 0 12px rgba(0,150,255,0.3);
+  }
+
+  p { font-size:1.2em; color:inherit; margin:15px 0 40px; animation:slideIn 2s ease-out; max-width: 700px; }
+  @keyframes slideIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+  /* ===== Team Image with Hover & Float ===== */
+  .team-img {
+    width:340px; 
+    max-width:90vw;
+    height:auto; 
+    border:4px solid #00f5d4; 
+    border-radius:15px;
+    box-shadow:0 0 25px #00f5d4; 
+    animation:pulseGlow 4s infinite ease-in-out, floatImg 6s ease-in-out infinite;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease;
+  }
+  .team-img:hover {
+    transform: scale(1.15) translateY(-5px);
+    filter: brightness(1.3) contrast(1.2);
+    box-shadow:
+      0 0 50px #00ffe7,
+      0 0 80px #00ccff,
+      0 0 120px #00f5d4 inset;
+  }
+  @keyframes pulseGlow { 
+    0%,100%{box-shadow:0 0 25px #00f5d4;} 
+    50%{box-shadow:0 0 45px #4361ee;} 
+  }
+  @keyframes floatImg {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  body.light-mode .team-img:hover {
+    transform: scale(1.15) translateY(-5px);
+    filter: brightness(1.2);
+    box-shadow:
+      0 0 50px #0077b6,
+      0 0 80px #00b4d8,
+      0 0 120px #48cae4 inset;
+  }
+
+  /* ===== Button ===== */
+  .btn {
+    margin-top:30px; padding:14px 40px; font-size:1.2em; color:#fff;
+    border:2px solid #00f5d4; border-radius:30px; background:transparent;
+    cursor:pointer; transition: all 0.4s ease; position:relative; overflow:hidden;
+  }
+  .btn::before {
+    content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+    background: linear-gradient(90deg, transparent, rgba(0,245,212,0.4), transparent);
+    transition:0.6s;
+  }
+  .btn:hover::before { left:100%; }
+  .btn:hover { background:#00f5d4; color:#0d0d1a; box-shadow:0 0 20px #00f5d4,0 0 40px #00f5d4; transform:scale(1.05); }
+  body.light-mode .btn { color:#0d1b2a; border:2px solid #0077b6; }
+  body.light-mode .btn:hover { background:#0077b6; color:#fff; box-shadow:0 0 20px #00b4d8; }
+  .btn.clicked { animation: explode 0.6s ease-out; }
+  @keyframes explode { 0%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:0.6;}100%{transform:scale(1);opacity:1;} }
+
+  /* ===== Responsive ===== */
+  @media(max-width:480px){
+    h1{font-size:2em;}
+    p{font-size:1em;}
+    .team-img{width:80vw;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Toggle icon -->
+<div id="modeToggle" title="Toggle Light/Dark">🌞</div>
+
+<!-- Backgrounds -->
+<div class="background" id="background"></div>
+<div class="stars" id="stars"></div>
+
+<!-- Main Content -->
+<div class="container">
+  <img src="C:\Users\cedrick\OneDrive\Desktop\portfolio group\image\GPIC.jpg" alt="Group Photo" class="team-img">
+  <h1>Meet Our Amazing Team 4</h1>
+  <p>We are BS Information Technology students from the University of Eastern Pangasinan, guided by our instructor, Ms. Jessabelle Florendo Abalos.</p>
+  <button class="btn" id="meetTeamBtn">Meet the Team</button>
+</div>
+
+<script>
+  /* ===== Stars ===== */
+  const starsContainer = document.getElementById('stars');
+  for(let i=0;i<100;i++){
+    const star=document.createElement('div');
+    star.classList.add('star');
+    star.style.width = `${Math.random()*3}px`;
+    star.style.height = star.style.width;
+    star.style.top = `${Math.random()*100}%`;
+    star.style.left = `${Math.random()*100}%`;
+    star.style.animationDelay = `${Math.random()*3}s`;
+    starsContainer.appendChild(star);
+  }
+
+  /* ===== Orbs ===== */
+  const bg = document.getElementById('background');
+  const orbs = [];
+  for(let i=0;i<8;i++){
+    const orb=document.createElement('div');
+    orb.classList.add('orb');
+    orb.style.top=`${Math.random()*100}%`;
+    orb.style.left=`${Math.random()*100}%`;
+    orb.style.width=`${120+Math.random()*200}px`;
+    orb.style.height=orb.style.width;
+    bg.appendChild(orb);
+    orbs.push(orb);
+  }
+
+  function updateOrbs(x,y){
+    orbs.forEach((orb,index)=>{
+      const speed=(index+1)/2;
+      orb.style.transform=`translate(${x*speed}px, ${y*speed}px)`;
+    });
+  }
+
+  document.addEventListener('mousemove', e=>{
+    const mouseX=(e.clientX/window.innerWidth-0.5)*30;
+    const mouseY=(e.clientY/window.innerHeight-0.5)*30;
+    updateOrbs(mouseX,mouseY);
+  });
+
+  /* ===== Meet Team Button ===== */
+  const meetTeamBtn = document.getElementById('meetTeamBtn');
+  meetTeamBtn.addEventListener('click',()=>{
+    meetTeamBtn.classList.add('clicked');
+    setTimeout(()=>{
+      meetTeamBtn.classList.remove('clicked');
+      window.location.href="team.html";
+    },600);
+  });
+
+  /* ===== Light/Dark Mode Toggle ===== */
+  const toggle = document.getElementById('modeToggle');
+  toggle.addEventListener('click', ()=>{
+    document.body.classList.toggle('light-mode');
+    if(document.body.classList.contains('light-mode')){
+      toggle.textContent = '🌙';
+    } else {
+      toggle.textContent = '🌞';
+    }
+  });
+</script>
+
+</body>
+</html>

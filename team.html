@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 4 Portfolio - Team</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+  * {margin:0; padding:0; box-sizing:border-box;}
+  html,body{
+    height:100%;
+    font-family:'Poppins',sans-serif;
+    background:#0d0d1a;
+    color:white;
+    overflow-x:hidden;
+    transition:background 0.6s ease,color 0.6s ease;
+  }
+
+  /* === Pop Animation === */
+  @keyframes pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === Background Orbs === */
+  .background{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;}
+  .orb{
+    position:absolute;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,245,212,0.4),rgba(67,97,238,0.1));
+    filter:blur(60px);
+    animation:floatOrb 12s infinite ease-in-out;
+  }
+  @keyframes floatOrb{
+    0%{transform:translate(0,0) scale(1);opacity:0.6;}
+    25%{transform:translate(60px,-80px) scale(1.2);opacity:0.8;}
+    50%{transform:translate(-80px,40px) scale(1);opacity:0.5;}
+    75%{transform:translate(100px,60px) scale(1.3);opacity:0.7;}
+    100%{transform:translate(0,0) scale(1);opacity:0.6;}
+  }
+
+  #starfield{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+  /* === Container === */
+  .container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:120px 20px;text-align:center;}
+  
+  h1{
+    font-size:3rem;letter-spacing:2px;
+    background:linear-gradient(90deg,#00f5d4,#00bbf9,#4361ee,#3a0ca3);
+    -webkit-background-clip:text;color:transparent;
+    animation:glowText 4s infinite alternate, pop 0.8s ease forwards;
+    margin-bottom:12px;
+    transition:all 0.6s ease;
+  }
+  
+  @keyframes glowText{
+    0%{text-shadow:0 0 10px #00f5d4,0 0 20px #00bbf9;}
+    100%{text-shadow:0 0 30px #4361ee,0 0 50px #3a0ca3;}
+  }
+
+  p.subheading{
+    font-size:1.2em;
+    margin-bottom:40px;
+    color:#ccc;
+    transition:color 0.6s ease;
+    animation: fadeInUp 1.2s ease forwards, pop 0.8s ease forwards;
+  }
+
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;}
+
+  .member-card{
+    position:relative;background:rgba(30,27,70,0.4);
+    border-radius:18px;overflow:hidden;
+    box-shadow:0 0 15px #00f5d4cc;
+    transition:transform 0.3s,box-shadow 0.3s,background 0.6s ease;
+    animation: pop 0.8s ease forwards;
+  }
+  /* Stagger for multiple cards */
+  .team-grid .member-card:nth-child(1) { animation-delay: 0.1s; }
+  .team-grid .member-card:nth-child(2) { animation-delay: 0.3s; }
+  .team-grid .member-card:nth-child(3) { animation-delay: 0.5s; }
+  .team-grid .member-card:nth-child(4) { animation-delay: 0.7s; }
+  .team-grid .member-card:nth-child(5) { animation-delay: 0.9s; }
+
+  /* Hover pop effect */
+  .member-card:hover{
+    transform: translateY(-10px) scale(1.05);
+    box-shadow:0 0 40px #4361eecc,inset 0 0 35px #00f5d4aa;
+  }
+
+  .member-card img{
+    width:100%;height:220px;object-fit:cover;
+    border-radius:18px 18px 0 0;
+    transition:transform 0.6s ease,filter 0.6s ease;
+  }
+  .member-card:hover img{transform:scale(1.08);filter:brightness(1.1);}
+  .member-name{
+    padding:15px;font-weight:700;font-size:0.95rem;
+    color:#00f5d4;text-shadow:0 0 6px #00f5d4aa;
+    transition:color 0.6s ease,text-shadow 0.6s ease,transform 0.3s;
+    animation: pop 0.8s ease forwards;
+  }
+  .member-name:hover{transform:scale(1.05);}
+
+  .overlay{
+    position:absolute;top:0;left:0;right:0;bottom:58px;
+    background:rgba(24,21,60,0.9);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    opacity:0;pointer-events:none;text-align:center;transition:opacity 0.3s ease;
+  }
+  .member-card:hover .overlay{opacity:1;pointer-events:auto;}
+  .overlay h3{
+    margin-bottom:10px;font-size:1.1rem;
+    background:linear-gradient(90deg,#00f5d4,#00bbf9,#4361ee,#3a0ca3);
+    -webkit-background-clip:text;color:transparent;
+    text-shadow:0 0 10px #00f5d4,0 0 20px #00bbf9;
+    animation:glowText 3s infinite alternate, pop 0.8s ease forwards;
+    transition:all 0.6s ease;
+  }
+  .overlay p{margin-bottom:14px;color:#ccc;font-size:0.85rem;transition:color 0.6s ease;}
+  .overlay button{
+    padding:10px 26px;border:none;border-radius:30px;font-weight:700;cursor:pointer;
+    background:linear-gradient(45deg,#00f5d4,#4361ee);
+    color:#0d0d1a;box-shadow:0 0 18px #00f5d4aa;
+    transition:0.4s, transform 0.3s;
+  }
+  .overlay button:hover{
+    background:#00bbf9;
+    box-shadow:0 0 30px #4361ee;
+    transform: scale(1.05);
+  }
+
+  /* === Buttons === */
+  .btn-container{position:fixed;top:20px;right:20px;display:flex;gap:10px;z-index:2;align-items:center;}
+  .btn-back{
+    background:#00f5d4cc;color:#0d0d1a;
+    border:none;padding:10px 25px;border-radius:30px;font-weight:700;
+    cursor:pointer;box-shadow:0 0 20px #00f5d4cc;
+    transition:background 0.3s, transform 0.3s;
+  }
+  .btn-back:hover{background:#00bbf9; transform: scale(1.05);}
+  .theme-toggle{
+    width:40px;height:40px;border:none;
+    background:#00f5d4;color:#0d0d1a;
+    border-radius:50%;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;box-shadow:0 0 15px #00f5d4aa;
+    transition:all 0.4s ease;
+  }
+  .theme-toggle:hover{transform:scale(1.1);background:#00bbf9;}
+
+  /* === Instructor Button === */
+  .view-instructor-btn-container{text-align:center;margin:60px 0;z-index:2;position:relative;}
+  .view-instructor-btn{
+    padding:14px 40px;font-size:1.2em;color:#fff;
+    border:2px solid #ffd700;border-radius:30px;
+    background:transparent;cursor:pointer;position:relative;
+    overflow:hidden;transition:all 0.4s ease, transform 0.3s;
+    box-shadow:0 0 25px #ffd70080;
+  }
+  .view-instructor-btn:hover::before{left:100%;}
+  .view-instructor-btn:hover{
+    background:#ffd700;color:#0d0d1a;
+    box-shadow:0 0 30px #ffd700,0 0 50px #ffef8f;
+    transform:scale(1.05);
+  }
+
+  /* === Light Mode === */
+  body.light-mode{background:#f5f5f5;color:#111;}
+  body.light-mode h1{
+    background:linear-gradient(90deg,#3a0ca3,#4361ee,#00bbf9);
+    -webkit-background-clip:text;color:#3a0ca3;
+    text-shadow:none;
+  }
+  body.light-mode p.subheading{color:#222;}
+  body.light-mode .member-card{
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+  }
+  body.light-mode .member-name{color:#3a0ca3;text-shadow:none;}
+  body.light-mode .overlay{
+    background:rgba(255,255,255,0.97);
+  }
+  body.light-mode .overlay h3{
+    background:none;color:#3a0ca3;text-shadow:none;
+  }
+  body.light-mode .overlay p{color:#222;}
+  body.light-mode .overlay button{
+    background:#3a0ca3;color:#fff;box-shadow:none;
+  }
+  body.light-mode .btn-back{background:#3a0ca3;color:#fff;}
+  body.light-mode .theme-toggle{
+    background:#3a0ca3;color:#fff;box-shadow:0 0 15px #3a0ca3aa;
+  }
+  body.light-mode .view-instructor-btn{color:#3a0ca3;border-color:#3a0ca3;box-shadow:0 0 10px #3a0ca3aa;}
+  body.light-mode .view-instructor-btn:hover{
+    background:#3a0ca3;color:white;box-shadow:0 0 30px #3a0ca3;
+  }
+
+  @media(max-width:480px){.member-card img{height:180px;}}
+</style>
+</head>
+<body>
+<div class="background" id="background"></div>
+<canvas id="starfield"></canvas>
+
+<div class="btn-container">
+  <button class="btn-back" onclick="location.href='index.html'">← Back</button>
+  <button class="theme-toggle" id="themeToggle">☀️</button>
+</div>
+
+<div class="container">
+  <h1>Meet the Team</h1>
+  <p class="subheading">Hover over a portrait to learn more and visit their portfolio.</p>
+  <div class="team-grid">
+    <div class="member-card" onclick="location.href='sampaga.html'">
+      <img src="image/cedrick.jpg">
+      <div class="member-name">Sampaga Cedrick</div>
+      <div class="overlay">
+        <h3>Sampaga Cedrick</h3><p>Click 'View Portfolio'</p>
+        <button onclick="event.stopPropagation();location.href='sampaga.html';">View Portfolio</button>
+      </div>
+    </div>
+    <div class="member-card" onclick="location.href='ramirez.html'">
+      <img src="image/janrey.jpg">
+      <div class="member-name">Ramirez Janrey</div>
+      <div class="overlay">
+        <h3>Ramirez Janrey</h3><p>Click 'View Portfolio'</p>
+        <button onclick="event.stopPropagation();location.href='ramirez.html';">View Portfolio</button>
+      </div>
+    </div>
+    <div class="member-card" onclick="location.href='padilla.html'">
+      <img src="image/gerald.jpg">
+      <div class="member-name">Padilla Gerald</div>
+      <div class="overlay">
+        <h3>Padilla Gerald</h3><p>Click 'View Portfolio'</p>
+        <button onclick="event.stopPropagation();location.href='padilla.html';">View Portfolio</button>
+      </div>
+    </div>
+    <div class="member-card" onclick="location.href='estabillo.html'">
+      <img src="image/menard.jpg">
+      <div class="member-name">Estabillo Menard</div>
+      <div class="overlay">
+        <h3>Estabillo Menard</h3><p>Click 'View Portfolio'</p>
+        <button onclick="event.stopPropagation();location.href='estabillo.html';">View Portfolio</button>
+      </div>
+    </div>
+    <div class="member-card" onclick="location.href='saribay.html'">
+      <img src="image/john mark.jpg">
+      <div class="member-name">Saribay John Mark</div>
+      <div class="overlay">
+        <h3>Saribay John Mark</h3><p>Click 'View Portfolio'</p>
+        <button onclick="event.stopPropagation();location.href='saribay.html';">View Portfolio</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-instructor-btn-container">
+    <button class="view-instructor-btn" onclick="location.href='instructor.html'">View Our Instructor</button>
+  </div>
+</div>
+
+<script>
+  // Background orbs
+  const bg=document.getElementById('background');
+  for(let i=0;i<8;i++){
+    const orb=document.createElement('div');
+    orb.classList.add('orb');
+    orb.style.top=`${Math.random()*100}%`;
+    orb.style.left=`${Math.random()*100}%`;
+    orb.style.width=`${120+Math.random()*200}px`;
+    orb.style.height=orb.style.width;
+    orb.style.animationDelay=`${Math.random()*8}s`;
+    bg.appendChild(orb);
+  }
+
+  // Starfield
+  const canvas=document.getElementById('starfield');const ctx=canvas.getContext('2d');
+  let w,h,stars=[];
+  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
+  class Star{constructor(){this.reset();}
+    reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.size=Math.random()*1.5+0.3;this.alpha=Math.random()*0.9+0.1;this.alphaSpeed=(Math.random()*0.008)+0.001;this.dir=Math.random()>0.5?-1:1;this.speedX=0.015+Math.random()*0.03;}
+    update(){this.alpha+=this.alphaSpeed*this.dir;if(this.alpha<=0.1)this.dir=1;else if(this.alpha>=1)this.dir=-1;this.x-=this.speedX;if(this.x<0)this.x=w;}
+    draw(){ctx.beginPath();let grd=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*7);grd.addColorStop(0,`rgba(234,234,255,${this.alpha})`);grd.addColorStop(0.6,`rgba(100,100,255,${this.alpha*0.35})`);grd.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=grd;ctx.arc(this.x,this.y,this.size*3,0,Math.PI*2);ctx.fill();}}
+  function initStars(){stars=[];for(let i=0;i<280;i++)stars.push(new Star());}
+  function animate(){ctx.clearRect(0,0,w,h);stars.forEach(s=>{s.update();s.draw();});requestAnimationFrame(animate);}
+  window.addEventListener('resize',()=>{resize();initStars();});
+  resize();initStars();animate();
+
+  // Theme Toggle
+  const themeToggle=document.getElementById('themeToggle');
+  themeToggle.addEventListener('click',()=>{
+    document.body.classList.toggle('light-mode');
+    themeToggle.textContent=document.body.classList.contains('light-mode')?'🌙':'☀️';
+  });
+</script>
+</body>
+</html>
